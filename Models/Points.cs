@@ -10,6 +10,7 @@ namespace MPlan.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public int Point { get; set; }
         public Users Voter { get; set; }
     }

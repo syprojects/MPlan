@@ -9,10 +9,10 @@ namespace MPlan.Models
     public class Users
     {
         public int UserId { get; set; }
-        public Plans Plans { get; set; }
-        public Plans CompletedPlans { get; set; }
-        public Items CompletedItems { get; set; }
-        public Users MyFriends { get; set; }
+        public ICollection<Plans> MyPlans { get; set; }
+        public ICollection<Items> MyItems { get; set; }
+        public ICollection<Users> MyFriends { get; set; }
+
 
 
     }

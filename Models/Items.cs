@@ -6,23 +6,32 @@ using System.Threading.Tasks;
 
 namespace MPlan.Models
 {
+    public enum ItemCategory
+    {
+        Book,
+        Film,
+        Training,
+        Activity
+    }
     public class Items
     {
         [Key]
         public int Id { get; set; }
-        //MyCategory is Book, movie, training, etc.
+        //Category is Book, movie, training, etc.
         [Required]
+        [Display(Name = "Görev Adı")]
         public string Name { get; set; }
 
         [Display(Name ="Kategori")]
-        public string Category { get; set; }
-
-        // UsageType         Template, Private, Friends, Public
-        public UType UsageType { get; set; }
+        [Required]
+        public ItemCategory Category { get; set; }
 
         //BelongsTo is Autohor if it is a book
+        [Display(Name = "Yazarı/Yönetmeni/Eğitimci")]
         public string BelongsTo { get; set; }
+        [Display(Name = "URL")]
         public string URL { get; set; }
+        public ICollection<Plans> Plan { get; set; }
         public ICollection<ItemPoints> Point { get; set; }
         public ICollection<ItemComments> Comment { get; set; }
     }
