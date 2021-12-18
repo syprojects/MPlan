@@ -11,8 +11,10 @@ namespace MPlan.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Bu alan zorunlu")]
+        [Display(Name ="Yorum")]
         public string Comment { get; set; }
+        [Display(Name = "Kullanıcı")]
         public Users Owner { get; set; }
 
     }

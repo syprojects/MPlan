@@ -8,6 +8,7 @@ namespace MPlan.Models
 {
     public class Users
     {
+        [Key]
         public int UserId { get; set; }
         public ICollection<Plans> MyPlans { get; set; }
         public ICollection<Items> MyItems { get; set; }

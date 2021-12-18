@@ -10,8 +10,10 @@ namespace MPlan.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Bu alan zorunlu")]
+        [Display(Name = "Puan")]
         public int Point { get; set; }
+        [Display(Name = "Oylayan")]
         public Users Voter { get; set; }
     }
 
