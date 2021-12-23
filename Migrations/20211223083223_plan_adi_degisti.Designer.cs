@@ -4,35 +4,22 @@ using MPlan.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MPlan.Migrations
 {
     [DbContext(typeof(MPlanContext))]
-    partial class MPlanContextModelSnapshot : ModelSnapshot
+    [Migration("20211223083223_plan_adi_degisti")]
+    partial class plan_adi_degisti
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("ItemsPlans", b =>
-                {
-                    b.Property<int>("Items1Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlanId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Items1Id", "PlanId");
-
-                    b.HasIndex("PlanId");
-
-                    b.ToTable("ItemsPlans");
-                });
 
             modelBuilder.Entity("MPlan.Models.ItemComments", b =>
                 {
@@ -194,6 +181,9 @@ namespace MPlan.Migrations
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ItemsId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -215,6 +205,8 @@ namespace MPlan.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ItemsId");
+
                     b.HasIndex("UsersUserId");
 
                     b.ToTable("DBPlan");
@@ -235,21 +227,6 @@ namespace MPlan.Migrations
                     b.HasIndex("UsersUserId");
 
                     b.ToTable("DBUsers");
-                });
-
-            modelBuilder.Entity("ItemsPlans", b =>
-                {
-                    b.HasOne("MPlan.Models.Items", null)
-                        .WithMany()
-                        .HasForeignKey("Items1Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MPlan.Models.Plans", null)
-                        .WithMany()
-                        .HasForeignKey("PlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MPlan.Models.ItemComments", b =>
@@ -313,6 +290,10 @@ namespace MPlan.Migrations
 
             modelBuilder.Entity("MPlan.Models.Plans", b =>
                 {
+                    b.HasOne("MPlan.Models.Items", null)
+                        .WithMany("Plan")
+                        .HasForeignKey("ItemsId");
+
                     b.HasOne("MPlan.Models.Users", null)
                         .WithMany("MyPlans")
                         .HasForeignKey("UsersUserId");
@@ -328,6 +309,8 @@ namespace MPlan.Migrations
             modelBuilder.Entity("MPlan.Models.Items", b =>
                 {
                     b.Navigation("Comment");
+
+                    b.Navigation("Plan");
 
                     b.Navigation("Point");
                 });

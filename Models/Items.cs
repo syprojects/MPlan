@@ -31,7 +31,7 @@ namespace MPlan.Models
         public ItemCategory Category { get; set; }
 
         //BelongsTo is Autohor if it is a book
-        [Display(Name = "Yazarı/Yönetmeni/Eğitimci")]
+        [Display(Name = "Yazarı/Eğitimci")]
         public string BelongsTo { get; set; }
         [Display(Name = "URL")]
         [RegularExpression(@"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})", ErrorMessage ="URL geçerli değil")]

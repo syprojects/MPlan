@@ -45,14 +45,16 @@ namespace MPlan.Controllers
         // GET: Plans/Create
         public IActionResult Create()
         {
-            ViewBag.items = new SelectList(_context.DBItem, "Id", "Name");
+            //ViewBag.items = new SelectList(_context.DBItem, "Id", "Name");
+            TempData["items"] = new SelectList(_context.DBItem, "Id", "Name");
+            
             return View();
         }
 
         // POST: Plans/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PlanType,StartDate,EndDate,CPercent,UsageType,ItemId,UserId")] Plans plans)
+        public async Task<IActionResult> Create([Bind("Name,Id,PlanType,StartDate,EndDate,CPercent,UsageType,ItemId,UserId")] Plans plans)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +86,7 @@ namespace MPlan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PlanType,StartDate,EndDate,CPercent,UsageType,ItemId,UserId")] Plans plans)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Id,PlanType,StartDate,EndDate,CPercent,UsageType,ItemId,UserId")] Plans plans)
         {
             if (id != plans.Id)
             {

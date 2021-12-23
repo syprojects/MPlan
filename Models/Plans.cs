@@ -22,8 +22,6 @@ namespace MPlan.Models
     //Usage Type
     public enum UType
     {
-        [Display(Name = "Şablon")]
-        Template,
         [Display(Name = "Kişiye Özel")]
         Private,
         [Display(Name = "Arkadaşlar")]
@@ -39,7 +37,7 @@ namespace MPlan.Models
 
         [Required(ErrorMessage = "Bu alan zorunlu")]
         [Display(Name = "Plan Adı")]
-        public period Name { get; set; }
+        public string Name { get; set; }
         // PlanType: Yearly, monthly, daily, weekly
         [Required(ErrorMessage = "Bu alan zorunlu")]
         [Display(Name = "Plan Tipi")]
@@ -68,6 +66,6 @@ namespace MPlan.Models
         public ICollection<PlanPoints> Point { get; set; }
         public ICollection<PlanComments> Comment { get; set; }
 
-
+        public ICollection<Items> Items1 { get; set; }
     }
 }

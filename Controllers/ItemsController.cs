@@ -21,7 +21,8 @@ namespace MPlan.Controllers
         // GET: Items
         public async Task<IActionResult> Index()
         {
-            return View(await _context.DBItem.ToListAsync());
+            var itemresult = _context.DBItem.Where(x => x.Id > 2);
+            return View(await itemresult.ToListAsync());
         }
 
         // GET: Items/Details/5
@@ -49,8 +50,6 @@ namespace MPlan.Controllers
         }
 
         // POST: Items/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Category,BelongsTo,URL")] Items items)
@@ -63,6 +62,20 @@ namespace MPlan.Controllers
             }
             return View(items);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateComment([Bind("Id,ItemId,Comment,OwnerUserId")] Comments comments)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(comments);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(comments);
+        }
+
 
         // GET: Items/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -81,8 +94,7 @@ namespace MPlan.Controllers
         }
 
         // POST: Items/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Category,BelongsTo,URL")] Items items)

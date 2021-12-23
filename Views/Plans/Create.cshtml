@@ -5,9 +5,9 @@
 
 }
 
-<h1>Create</h1>
+<h1>Yeni Plan Oluştur</h1>
 
-<h4>Plans</h4>
+<h4>Planlar</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -46,10 +46,15 @@
             <div class="form-group">
                 <label asp-for="ItemId" class="control-label"></label>
                 @*   @Html.DropDownList("Name", ViewBag.items as SelectList, "Seçiniz", new { id = "Name" } )*@
+                
                 <select asp-for="ItemId" class="form-control">
-                    @foreach (var row in ViewBag.items)
+                    @if (TempData["items"] != null)
+                    { 
+                    @foreach (var row in (SelectList)TempData["items"])
                     {
                         <option value="@row.Value">@row.Text</option>
+                      
+                    }
                     }
                 </select>
 
@@ -67,7 +72,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Listeye geri dön</a>
 </div>
 
 @section Scripts {

@@ -4,10 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Ayrıntılar</h1>
 
 <div>
-    <h4>Items</h4>
+    <h4>Görevler/Nesneler</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -32,11 +32,53 @@
             @Html.DisplayNameFor(model => model.URL)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.URL)
+
+            <a href="@Html.DisplayFor(model => model.URL)">@Html.DisplayFor(model => model.URL)</a>
+            
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a> |
+    <a asp-action="Index">Listeye geri dön</a>
+</div>
+
+<div>
+    <form asp-action="CreateComment">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Comment" class="control-label"></label>
+            <input asp-for="Comment" class="form-control" />
+            <span asp-validation-for="Comment" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Point" class="control-label"></label>
+
+            <select asp-for="Point" class="form-control">
+                @for(int i = 1;i < 6; i++)
+               {
+                <option value="@i">@i</option>
+                }
+            </select>
+            <span asp-validation-for="Point" class="text-danger"></span>
+        </div>
+     @*<input type="hidden" asp-for="Id" value="1" />*@
+        <div class="form-group">
+            <input type="submit" value="Oluştur" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+<div>
+    <h4>Yorumlar</h4>
+    <hr />
+    @if (Model.Comment != null)
+    {
+    @foreach(var com in Model.Comment)
+    {
+        Console.WriteLine(com.Comment);
+    }
+    }
 </div>
