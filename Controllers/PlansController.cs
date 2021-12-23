@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MPlan.Models;
 
-namespace MPlan.Models
+namespace MPlan.Controllers
 {
     public class PlansController : Controller
     {
@@ -44,12 +45,11 @@ namespace MPlan.Models
         // GET: Plans/Create
         public IActionResult Create()
         {
+            ViewBag.items = new SelectList(_context.DBItem, "Id", "Name");
             return View();
         }
 
         // POST: Plans/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,PlanType,StartDate,EndDate,CPercent,UsageType,ItemId,UserId")] Plans plans)
