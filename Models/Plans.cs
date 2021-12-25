@@ -63,9 +63,10 @@ namespace MPlan.Models
         [Display(Name = "Görev/Nesne")]
         public int ItemId { get; set; }
         public int UserId { get; set; }
+        [Display(Name = "Puanlama")]
         public ICollection<PlanPoints> Point { get; set; }
+        [Display(Name = "Yorumlar")]
         public ICollection<PlanComments> Comment { get; set; }
 
-        public ICollection<Items> Items1 { get; set; }
     }
 }

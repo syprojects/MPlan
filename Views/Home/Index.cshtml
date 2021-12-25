@@ -1,8 +1,31 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+
+@{
+
     ViewData["Title"] = "Mplan: Make, check and share plans";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome Ali</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@if (User.Identity.IsAuthenticated)
+{
+<div class="text-center">
+    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Merhaba @User.Identity.Name!</a>
+</div>
+<div class="text-center">
+    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <button type="submit" class="nav-link btn btn-link text-dark">Çıkış</button>
+    </form>
+</div>
+}
+else
+{
+<div class="text-center">
+    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Kayıt Ol</a>
+</div>
+<div class="text-center">
+    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Kullanıcı Girişi</a>
+</div>
+}
+

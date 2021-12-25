@@ -37,7 +37,11 @@ namespace MPlan.Models
         [RegularExpression(@"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})", ErrorMessage ="URL geçerli değil")]
         public string URL { get; set; }
         public ICollection<Plans> Plan { get; set; }
-        public ICollection<ItemPoints> Point { get; set; }
+
+        [Display(Name = "Puanlama")]
+        public ICollection<ItemPoints> Point { get; set;}
+
+        [Display(Name = "Yorumlar")]
         public ICollection<ItemComments> Comment { get; set; }
     }
 }

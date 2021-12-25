@@ -4,14 +4,16 @@ using MPlan.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MPlan.Migrations
 {
     [DbContext(typeof(MPlanContext))]
-    partial class MPlanContextModelSnapshot : ModelSnapshot
+    [Migration("20211225071935_plan_adi_degisti3")]
+    partial class plan_adi_degisti3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
