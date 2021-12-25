@@ -2,7 +2,7 @@
 
 This application is a planning application by entering annual, monthly, weekly and daily SMART goals. 
 
-In addition, the plan template can be shared with others, others can use these templates, rate the template and comment. 
+In addition, the public plans can use, rate and comment by others,
 
 Moreover, other people can use and comment on the objects used in the plan.
 
@@ -12,9 +12,10 @@ __________________________________________
 
 Bu uygulama yıllık, aylık, haftalık ve günlük SMART hedefleri girilerek yapılan bir planlama uygulamasıdır.
 
-Ayrıca plan şablonu başkalarıyla paylaşılabilir, başkaları bu şablonları kullanabilir, şablonu değerlendirebilir ve yorum yapabilir.
+Ayrıca genele/arkadaşlara açılan planları başkaları da örnek alıp kullanabilir, değerlendirebilir ve yorum yapabilir.
 
-Ayrıca, planda kullanılan nesneleri başkaları da kullanabilir ve yorumlayabilir.
+Ayrıca, planda kullanılan görev/nesneleri başkaları da kullanabilir ve yorumlayabilir.
+
 
 
 PLANLAMA UYGULAMASI
