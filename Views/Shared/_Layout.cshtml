@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+
+@inject IOptions<RequestLocalizationOptions> locOptions
+
+@{ 
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = locOptions.Value.SupportedCultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,6 +21,18 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    @{ 
+        string culture = "", uiculture = "";
+        string url = "";
+        if (Context.Request.QueryString.HasValue)
+        {
+            url = Context.Request.QueryString.Value;
+            culture = Context.Request.Query["culture"];
+            uiculture = Context.Request.Query["ui-culture"];
+        }
+    }
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -28,8 +53,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Plans" asp-action="Index">Planlar</a>
                         </li>
-
                     </ul>
+                    <form id="cultureForm" asp-action="@url">
+                        <label>Dil:</label>
+                        <select name="culture" onchange="SetCulture(this.value)" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems" >
+
+                        </select>
+                    </form>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -52,3 +82,11 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script>
+    function SetCulture(selectedValue) {
+        var culture = "/?culture=" + selectedValue + "&ui-culture=" + selectedValue;
+        document.getElementById("cultureForm").action = culture;
+        document.getElementById("cultureForm").submit();
+    }
+</script>

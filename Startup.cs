@@ -7,12 +7,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Razor;
+using Microsoft.AspNetCore.Mvc.Razor;
 using MPlan.Data;
 using MPlan.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace MPlan
 {
@@ -40,7 +45,20 @@ namespace MPlan
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
 
+            services.AddMvc().AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix);
+            services.AddControllersWithViews();
+            services.Configure<RequestLocalizationOptions>(Options =>
+            {
+                var supportedCultures = new[]
+                {
 
+                    new CultureInfo("en"),
+                    new CultureInfo("tr")
+                };
+                Options.DefaultRequestCulture = new RequestCulture(culture: "tr", uiCulture: "tr");
+                Options.SupportedCultures = supportedCultures;
+                Options.SupportedUICultures = supportedCultures;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +79,9 @@ namespace MPlan
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            var locOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(locOptions.Value);
 
             app.UseAuthentication();
             app.UseAuthorization();
